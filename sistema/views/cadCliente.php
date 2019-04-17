@@ -13,9 +13,9 @@ if(isset($_POST['salvar'])){
     $cliente->setSenha(md5($_POST['senha']));
     $cliente->setTelefone($_POST['telefone']);
 
-    echo ClienteController::inserir($cliente);
+    ClienteController::inserir($cliente);
+    header('Location: listaClientes.php');  // adicionar no banco de dados
     // echo var_dump($cliente); // mostrar os dados na tela após salvar
-
 
 }
 
@@ -85,14 +85,6 @@ if(isset($_POST['salvar'])){
        </div>
      </div>
    </div>
-
-
-
-
-
-
-
-
 
 
 <script src="js/jquery-3.3.1.js"></script>

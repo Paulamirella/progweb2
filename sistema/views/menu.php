@@ -3,7 +3,7 @@
     <!--ATALHO PARA CRIAR as 3 linhas abaixo, digitar e tab: li.nav-item*3>a.nav-link.active -->
 
     <li class="nav-item">
-        <a class="nav-link active" href="cadCliente.php">Cadastre-se</a>
+        <a class="nav-link active" href="listaClientes.php">Gerenciar Clientes</a>
 
     <li class="nav-item">
         <a class="nav-link active" href="#">Active</a>

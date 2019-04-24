@@ -18,17 +18,17 @@ class ClienteController
 
     private static function alterar(Cliente $cliente) {
 
-        $sql = "INSERT INTO cliente (nome, cpf, endereco, email, telefone, senha) VALUES (:nome, :cpf, :endereco, :email, :telefone, :senha)";
+        $sql = "UPDATE cliente SET nome = :nome, cpf= :cpf, endereco= :endereco, telefone= :telefone WHERE id = :id";
 
         $db = Conexao::getInstance();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':nome', $cliente->getNome());
         $stmt->bindValue(':cpf', $cliente->getCpf());
         $stmt->bindValue(':endereco', $cliente->getEndereco());
-        $stmt->bindValue(':email', $cliente->getEmail());
+        // $stmt->bindValue(':email', $cliente->getEmail());
         $stmt->bindValue(':telefone', $cliente->getTelefone());
-        $stmt->bindValue(':senha', $cliente->getSenha());
-
+        // $stmt->bindValue(':senha', $cliente->getSenha());
+        $stmt->bindValue(':id', $cliente->getId());
         $stmt->execute();
 
         return "OK!";

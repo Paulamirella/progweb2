@@ -8,7 +8,6 @@ if(isset($_GET['excluir'])){
     ClienteController::excluir($_GET['excluir']);
 }
 
-
 ?>
 
 
@@ -57,9 +56,9 @@ if(isset($_GET['excluir'])){
                                 echo "<td>" . $cliente->getNome() . "</td>";
                                 echo "<td>" . $cliente->getEmail() . "</td>";
                                 echo "<td>";
-                                echo "<a href='' class = \"btn btn-info\"> Visualizar </a>";
+                                echo "<a href='visualizarCliente.php?id=".$cliente->getId()."' class = \"btn btn-info\"> Visualizar </a>";
                                 echo " ";
-                                echo "<a href='' class = \"btn btn-primary\"> Editar </a>";
+                                echo "<a href='cadCliente.php?id=".$cliente->getId()."' class = \"btn btn-primary\"> Editar </a>";
                                 echo " ";
                                 echo "<a href='listaClientes.php?excluir=".$cliente->getId()."' class = \"btn btn-danger\"> Remover </a>";
 
@@ -68,15 +67,14 @@ if(isset($_GET['excluir'])){
 
 
                             }
-
-                            ?>
+                                                        ?>
 
                             </tbody>
                         </table>
 
 
     </div>
-</div>
+
 
 
 <script src="js/jquery-3.3.1.js"></script>

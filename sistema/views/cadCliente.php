@@ -4,8 +4,13 @@ require_once "../controllers/ClienteController.php";
 
 $cliente = new Cliente();
 
+if (isset($_GET['id'])) {
+    $cliente = ClienteController::visualizar($_GET['id']);
+}
+
+
 if(isset($_POST['salvar'])){
-    $cliente->setId(0);
+    $cliente->setId($_POST['id']);
     $cliente->setNome($_POST['nome']);
     $cliente->setCpf($_POST['cpf']);
     $cliente->setEndereco($_POST['endereco']);
@@ -13,7 +18,7 @@ if(isset($_POST['salvar'])){
     $cliente->setSenha(md5($_POST['senha']));
     $cliente->setTelefone($_POST['telefone']);
 
-    ClienteController::inserir($cliente);
+    ClienteController::salvar($cliente);
     header('Location: listaClientes.php');  // adicionar no banco de dados
     // echo var_dump($cliente); // mostrar os dados na tela após salvar
 
@@ -52,6 +57,7 @@ if(isset($_POST['salvar'])){
             </div>
             <div class="card-body">
                 <form action="cadCliente.php" method="post">
+                    <input type="hidden" name="id" value="<?php echo $cliente->getId();?>"> <!--ocultar o ID-->
                     <div class="form-row">
                         <div class="form-group col-md-8">
                             <label for="">Nome</label>
@@ -67,11 +73,23 @@ if(isset($_POST['salvar'])){
                         </div>
                         <div class="form-group col-md-6">
                             <label for="">E-mail</label>
-                            <input type="email" class="form-control" placeholder="exemplo@email.com" name="email">
-                        </div>
+
+                            <?php if ($cliente->getId()>0) {?>
+
+                            <input type="email" class="form-control" placeholder="exemplo@email.com" name="email" disabled>
+
+                        <?php } else { ?>
+                                <input type="email" class="form-control" placeholder="exemplo@email.com" name="email">
+                            <?php } ?>
+
+                    </div>
                         <div class="form-group col-md-3">
                             <label for="">Senha</label>
+
+                            <?php if ($cliente->getId()<=0) { ?>
+
                             <input type="password" class="form-control" placeholder="Senha de 7 digitos" name="senha">
+                            <?php } ?>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="">Telefone</label>

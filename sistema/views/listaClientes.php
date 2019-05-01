@@ -67,7 +67,7 @@ if(isset($_GET['excluir'])){
 
 
                             }
-                                                        ?>
+                            ?>
 
                             </tbody>
                         </table>

@@ -6,10 +6,10 @@
         <a class="nav-link active" href="listaClientes.php">Gerenciar Clientes</a>
 
     <li class="nav-item">
-        <a class="nav-link active" href="#">Active</a>
+        <a class="nav-link active" href="listaEditoras.php">Gerenciar Editoras</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="listaGeneros.php">Gerenciar Gêneros</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="#">Link</a>

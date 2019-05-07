@@ -12,7 +12,7 @@
         <a class="nav-link" href="listaGeneros.php">Gerenciar Gêneros</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="#">Gerenciar Livros</a>
     </li>
 
     </ul>

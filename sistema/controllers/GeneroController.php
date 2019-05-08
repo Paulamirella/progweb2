@@ -74,20 +74,8 @@ class GeneroController{
         return $arrRetorno;
     }
 
-
-    public static function excluir($id)
-    {
-
-        $sql = "DELETE FROM genero WHERE id = :id";
-        $db = Conexao::getInstance();
-        $stmt = $db->prepare($sql);
-        $stmt->bindValue(":id", $id);
-        $stmt->execute();
-    }
-
     public static function visualizar($id)
     {
-
         $sql = "SELECT * FROM genero WHERE id = :id";
         $db = Conexao::getInstance();
 
@@ -99,9 +87,22 @@ class GeneroController{
 
         if (count($listagem) > 0) {
             return self::popularGenero($listagem[0]);
+
         }
 
     }
+
+     public static function excluir($id)
+    {
+
+        $sql = "DELETE FROM genero WHERE id = :id";
+        $db = Conexao::getInstance();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(":id", $id);
+        $stmt->execute();
+    }
+
+
 }
 
 

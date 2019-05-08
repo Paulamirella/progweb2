@@ -70,6 +70,26 @@ class EditoraController
         return $arrRetorno;
     }
 
+    public static function visualizar($id)
+    {
+        $sql = "SELECT * FROM editora WHERE id = :id";
+        $db = Conexao::getInstance();
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(":id", $id);
+        $stmt->execute();
+
+        $listagem = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (count($listagem) > 0) {
+            return self::popularEditora($listagem[0]);
+
+        }
+
+    }
+
+
+
 
     public static function excluir($id)
     {
@@ -81,21 +101,6 @@ class EditoraController
         $stmt->execute();
     }
 
-    public static function visualizar($id)
-    {
 
-        $sql = "SELECT * FROM editora WHERE id = :id";
-        $db = Conexao::getInstance();
-        $stmt = $db->prepare($sql);
-        $stmt->bindValue(":id", $id);
-        $stmt->execute();
-
-        $listagem = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        if (count($listagem) > 0) {
-            return self::popularEditora($listagem[0]);
-        }
-
-    }
 }
 

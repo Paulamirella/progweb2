@@ -86,27 +86,34 @@ class LivroController
         }
 
     }
+
         private static function popularLivro($itemLista)
     {
 
         $livro = new Livro();
         $livro->setId($itemLista["id"]);
-        $livro->setNome($itemLista["nome"]);
+        $livro->setTitulo($itemLista["titulo"]);
+        $livro->setDescricao($itemLista["descricao"]);
+        $livro->setAutor($itemLista["autor"]);
+        $livro->setValor($itemLista["valor"]);
+        $livro->setAno($itemLista["ano"]);
+
+        $livro->getGenero()->setId($itemLista['idgenero']);
+        $livro->getGenero()->setNome($itemLista['genero']);
+        $livro->getEditora()->setId($itemLista['ideditora']);
+        $livro->getEditora()->setNome($itemLista['editora']);
+
+
         return $livro;
     }
 
     public static function trazerTodos()
     {
 
-        $sql = "SELECT l.*, g.descricao AS genero, e.descricao AS editora From livro l 
+        $sql = "SELECT l.*, g.nome AS genero, e.nome AS editora From livro l 
                 INNER JOIN genero g ON g.id = l.idgenero
                 INNER JOIN editora e ON e.id = l.ideditora";
-
-
-
-
-
-        $db = Conexao::getInstance();
+       $db = Conexao::getInstance();
         $stmt = $db->query($sql);
         $listagem = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

@@ -61,25 +61,25 @@ if(isset($_POST['salvar'])){
                     <div class="form-row">
                         <div class="form-group col-md-8">
                             <label for="">Nome</label>
-                            <input type="text" class="form-control" placeholder="Nome" name="nome">
+                            <input type="text" class="form-control" placeholder="Nome" name="nome" value="<?php echo $cliente->getNome();?>">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="">CPF</label>
-                            <input type="text" class="form-control" placeholder="999.999.999-99" name="cpf">
+                            <input type="text" class="form-control" placeholder="999.999.999-99" name="cpf" value="<?php echo $cliente->getCpf();?>">
                         </div>
                         <div class="form-group col-md-12">
                             <label for="">Endereço</label>
-                            <input type="text" class="form-control" placeholder="Rua tal, n 00, Setor, Bairro, Cidade" name="endereco">
+                            <input type="text" class="form-control" placeholder="Rua tal, n 00, Setor, Bairro, Cidade" name="endereco" value="<?php echo $cliente->getEndereco();?>">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="">E-mail</label>
 
                             <?php if ($cliente->getId()>0) {?>
 
-                            <input type="email" class="form-control" placeholder="exemplo@email.com" name="email" disabled>
+                            <input type="email" class="form-control" placeholder="exemplo@email.com" name="email" disabled value="<?php echo $cliente->getEmail();?>">
 
                         <?php } else { ?>
-                                <input type="email" class="form-control" placeholder="exemplo@email.com" name="email">
+                                <input type="email" class="form-control" placeholder="exemplo@email.com" name="email" value="<?php echo $cliente->getEmail();?>">
                             <?php } ?>
 
                     </div>

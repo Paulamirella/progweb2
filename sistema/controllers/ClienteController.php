@@ -73,6 +73,27 @@ class ClienteController
 
     }
 
+    public static function login($email, $senha)
+    {
+        $sql = "SELECT * FROM cliente WHERE email = :email AND senha = :senha";
+        $db = Conexao::getInstance();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':email', $email);
+        $stmt->bindValue(':senha', $senha);
+        $stmt->execute();
+
+        $listagem = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (count($listagem) > 0) {
+            $clientelogin = self::popularCliente($listagem[0]);
+            $_SESSION['user'] = serialize($clientelogin);
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
     private static function popularCliente($itemLista)
     {
         $cliente = new Cliente();

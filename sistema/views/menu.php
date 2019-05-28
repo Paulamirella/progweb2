@@ -1,3 +1,17 @@
+<?php
+require_once "../models/Cliente.php";
+session_start();
+if (isset($_SESSION['user'])){
+    $cliente = new Cliente();
+    $cliente = unserialize($_SESSION['user']);
+    echo "Bem vindo ".$cliente->getNome()."<br>";
+    echo "<a class='btn btn-primary' href='login.php?logout=true'>Sair</a>";
+}else{
+    header("Location: login.php");
+}
+
+
+?>
 <ul class="nav flex-column">
 
     <!--ATALHO PARA CRIAR as 3 linhas abaixo, digitar e tab: li.nav-item*3>a.nav-link.active -->

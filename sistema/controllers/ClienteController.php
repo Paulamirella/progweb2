@@ -85,7 +85,7 @@ class ClienteController
         $listagem = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         if (count($listagem) > 0) {
-            $clientelogin = self::popularCliente($listagem[0]);
+            $clientelogin = self::popularClienteLogin($listagem[0]);
             $_SESSION['user'] = serialize($clientelogin);
             return true;
         } else {
@@ -104,6 +104,21 @@ class ClienteController
         $cliente->setTelefone($itemLista["telefone"]);
         $cliente->setEmail($itemLista["email"]);
         $cliente->setSenha($itemLista["senha"]);
+        return $cliente;
+
+    }
+
+
+    private static function popularClienteLogin($itemLista)
+    {
+        $cliente = new Cliente();
+        $cliente->setId($itemLista["id"]);
+        $cliente->setNome($itemLista["nome"]);
+        $cliente->setCpf($itemLista["cpf"]);
+        $cliente->setEndereco($itemLista["endereco"]);
+        $cliente->setTelefone($itemLista["telefone"]);
+        $cliente->setEmail($itemLista["email"]);
+        // $cliente->setSenha($itemLista["senha"]);
         return $cliente;
 
     }

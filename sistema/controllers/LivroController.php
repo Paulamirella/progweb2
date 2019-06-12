@@ -20,7 +20,7 @@ class LivroController
 
     private static function inserir(Livro $livro) {
 
-        $sql = "INSERT INTO livro (titulo, descricao, autor, idgenero, ideditora, valor, ano) VALUES(:titulo, :decricao, :autor, :idgenero, :ideditora, :valor, :ano)";
+        $sql = "INSERT INTO livro (titulo, descricao, autor, idgenero, ideditora, valor, ano) VALUES(:titulo, :decricao, :autor, :idgenero, :ideditora, :valor, :ano, :capa)";
 
         $db = Conexao::getInstance();
         $stmt = $db->prepare($sql);
@@ -31,6 +31,7 @@ class LivroController
         $stmt->bindValue(':ideditora', $livro->getEditora()->getEditora());
         $stmt->bindValue(':valor', $livro->getValor());
         $stmt->bindValue(':ano', $livro->getAno());
+        $stmt->bindValue(':capa', $livro->getCapaImagem());
 
         $stmt->execute();
 
@@ -41,7 +42,7 @@ class LivroController
     private static function alterar(Livro $livro){
 
         $sql = "UPDATE livro SET titulo= :titulo, descricao=:descricao, autor=:autor, idgenero=:idgenero,
-                ideditora=:ideditora, valor=:valor, ano=:valor WHERE id=:id";
+                ideditora=:ideditora, valor=:valor, ano=:valor, capa=:capa WHERE id=:id";
 
         $db = Conexao::getInstance();
         $stmt = $db->prepare($sql);
@@ -52,6 +53,7 @@ class LivroController
         $stmt->bindValue(':ideditora', $livro->getEditora()->getEditora());
         $stmt->bindValue(':valor', $livro->getValor());
         $stmt->bindValue(':ano', $livro->getAno());
+        $stmt->bindValue(':capa', $livro->getCapaImagem());
         $stmt->bindValue(':id', $livro->getId());
 
         $stmt->execute();
@@ -102,6 +104,8 @@ class LivroController
         $livro->getGenero()->setNome($itemLista['genero']);
         $livro->getEditora()->setId($itemLista['ideditora']);
         $livro->getEditora()->setNome($itemLista['editora']);
+        $livro->setCapaImagem($itemLista['capa']);
+
 
 
         return $livro;
@@ -123,6 +127,32 @@ class LivroController
         }
 
         return $arrRetorno;
+    }
+
+    public static function trazerTodosPorGenero($genero){
+        $sql = "SELECT l.*, g.nome AS genero, e.nome AS editora FROM livro l INNER JOIN genero g ON g.id = l.idgenero INNER JOIN editora e ON e.id = l.ideditora WHERE l.idgenero = :genero";
+        $db = Conexao::getInstance();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':genero', $genero);
+        $stmt->execute();
+        $listagem = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $arrRetorno = array();
+        foreach ($listagem as $itemLista){
+            $arrRetorno[] = self::popularLivro($itemLista);
+        }
+        return $arrRetorno;
+    }
+
+    public static function buscarLivro($id){
+        $sql = "SELECT l.*, g.nome AS genero, e.nome AS editora FROM livro l INNER JOIN genero g ON g.id = l.idgenero INNER JOIN editora e ON e.id = l.ideditora WHERE l.id = :id";
+        $db = Conexao::getInstance();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+        $listagem = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (count($listagem) > 0){
+            return self::popularLivro($listagem[0]);
+        }
     }
 
 
